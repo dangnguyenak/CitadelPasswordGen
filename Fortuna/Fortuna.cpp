@@ -325,7 +325,7 @@ bool Fortuna::ReadSeedFile(FortunaErrors& fError)
 
 	vecuc vPlainText;
 	vPlainText.resize(vState.size());
-	for (i=0; i<vState.size(); ++i)
+	for (int i=0; i<vState.size(); ++i)
 		vPlainText[i] = vState[i];
 
 	std::vector<unsigned char> vKey;
@@ -337,7 +337,7 @@ bool Fortuna::ReadSeedFile(FortunaErrors& fError)
 
 	vState.clear();
 	vState.resize(vPlainText.size());
-	for (i=0; i<vState.size(); ++i)
+	for (int i=0; i<vState.size(); ++i)
 		vState[i] = vPlainText[i];
 
 	// extract the generator key - 32 bytes

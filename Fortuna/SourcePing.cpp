@@ -206,8 +206,8 @@ bool SourcePing::GetChaoticData(std::vector<unsigned char>& vData)
 int SourcePing::SendEchoRequest(SOCKET s,LPSOCKADDR_IN lpstToAddr) 
 {
 	static ECHOREQUEST echoReq;
-	static nId = 1;
-	static nSeq = 1;
+	static int nId = 1;
+	static int nSeq = 1;
 	int nRet=0;
 
 #define ICMP_ECHOREQ 8

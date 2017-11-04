@@ -137,7 +137,7 @@ unsigned SourceMgr::ThreadHandlerProc(void)
 	Sleep(10);
 	std::vector<HANDLE> hVector;
 	hVector.resize(numSources);
-	for (i=0; i<numSources; ++i)
+	for (size_t i=0; i<numSources; ++i)
 	{
 		Source *pSource = m_Sources[i];
 		hVector[i] = pSource->GetThreadHandle();

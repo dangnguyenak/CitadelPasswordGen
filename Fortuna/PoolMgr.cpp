@@ -82,7 +82,7 @@ unsigned PoolMgr::ThreadHandlerProc(void)
 	}
 
 	std::vector<HANDLE> vPoolHandles(eNumberOfPools);
-	for (i=0; i<eNumberOfPools; ++i)
+	for (int i=0; i<eNumberOfPools; ++i)
 	{
 		vPoolHandles[i] = m_Pools[i]->GetThreadHandle();
 	}

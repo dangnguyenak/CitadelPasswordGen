@@ -176,7 +176,7 @@ void EraseHash(sha256_ctx ctx[1])
 	for (int i=0; i<8; ++i)
 		ctx[0].hash[i] = rand();
 
-	for (i=0; i<16; ++i)
+	for (int i=0; i<16; ++i)
 		ctx[0].wbuf[i] = rand();
 }
 
