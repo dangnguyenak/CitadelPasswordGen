@@ -114,9 +114,6 @@ BOOL CCitadelPasswordGenDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
 	// TODO: Add extra initialization here
-	m_azlower.SetCheck(BST_CHECKED);
-	m_azupper.SetCheck(BST_CHECKED);
-	m_punct.SetCheck(BST_CHECKED);
 	m_digits.SetCheck(BST_CHECKED);
 
 	SetGenState();
@@ -199,17 +196,9 @@ void CCitadelPasswordGenDlg::OnBnClickedBtnGen()
 	}
 
 	CString chars;
-	if (m_azlower.GetCheck())
-		chars += CString("abcdefghijklmnopqrstuvwxyz");
-
-	if (m_azupper.GetCheck())
-		chars += CString("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 
 	if (m_digits.GetCheck())
-		chars += CString("0123456789");
-
-	if (m_punct.GetCheck())
-		chars += CString("~!@#$%^&*:;<>?");
+		chars += CString("01");
 
 	Fortuna *pFortuna = theApp.GetFortuna();
 
@@ -332,13 +321,9 @@ void CCitadelPasswordGenDlg::SetGenState()
 //! ensure that at least one checkbox is checked
 bool CCitadelPasswordGenDlg::OneCheckbox()
 {
-	int i1 = m_azlower.GetCheck() == BST_CHECKED;
-	int i2 = m_azupper.GetCheck() == BST_CHECKED;
-	int i3 = m_digits.GetCheck() == BST_CHECKED;
-	int i4 = m_punct.GetCheck() == BST_CHECKED;
+	int i = m_digits.GetCheck() == BST_CHECKED;
 
-
-	return i1+i2+i3+i4 ? true : false;
+	return i ? true : false;
 }
 
 
