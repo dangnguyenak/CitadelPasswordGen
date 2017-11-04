@@ -241,6 +241,11 @@ void CCitadelPasswordGenDlg::OnBnClickedBtnGen()
 		}
 	}
 
+	//
+	CStdioFile writeToFile;
+	CFileException fileException;
+	CString strFilePath = _T("data\\password.dat");
+
 	CString password;
 
 	// generate some random bytes, throw away those that are greater than or equal to the number of chars
@@ -274,12 +279,25 @@ void CCitadelPasswordGenDlg::OnBnClickedBtnGen()
 	}
 
 	if (bStatus)
+	{
 		m_password.SetWindowText(password);
+		if (writeToFile.Open(strFilePath, CFile::modeCreate | CFile::modeWrite | CFile::modeNoTruncate), &fileException)
+		{
+			writeToFile.SeekToEnd();
+			writeToFile.WriteString(_T(password + "\n"));
+		}
+		else
+		{
+			CString strErrorMsg;
+			strErrorMsg.Format(_T("Can't open file %s , error : %u"), strFilePath, fileException.m_cause);
+			AfxMessageBox(strErrorMsg);
+		}
+	}
 	else
 	{
 		AfxMessageBox("Insufficient Entropy to generate secure random numbers", MB_OK);
 	}
-
+	writeToFile.Close();
 }
 
 void CCitadelPasswordGenDlg::OnBnClickedCheckaz()
