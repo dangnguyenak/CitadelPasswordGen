@@ -58,10 +58,6 @@ CCitadelPasswordGenDlg::CCitadelPasswordGenDlg(CWnd* pParent /*=NULL*/)
 void CCitadelPasswordGenDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
-	DDX_Control(pDX, IDC_CHECK_az, m_azlower);
-	DDX_Control(pDX, IDC_CHECK_AZCaps, m_azupper);
-	DDX_Control(pDX, IDC_CHECK_09, m_digits);
-	DDX_Control(pDX, IDC_CHECK_Punct, m_punct);
 	DDX_Control(pDX, IDC_EDIT_SIZE, m_size);
 	DDX_Control(pDX, IDC_BTN_GEN, m_generate);
 	DDX_Control(pDX, IDC_EDIT_PWD, m_password);
@@ -76,10 +72,6 @@ BEGIN_MESSAGE_MAP(CCitadelPasswordGenDlg, CDialog)
 	//}}AFX_MSG_MAP
 	ON_EN_CHANGE(IDC_EDIT_SIZE, OnEnChangeEditSize)
 	ON_BN_CLICKED(IDC_BTN_GEN, OnBnClickedBtnGen)
-	ON_BN_CLICKED(IDC_CHECK_az, OnBnClickedCheckaz)
-	ON_BN_CLICKED(IDC_CHECK_AZCaps, OnBnClickedCheckAzcaps)
-	ON_BN_CLICKED(IDC_CHECK_09, OnBnClickedCheck09)
-	ON_BN_CLICKED(IDC_CHECK_Punct, OnBnClickedCheckPunct)
 	ON_BN_CLICKED(IDC_BUTTON_MONITOR, OnBnClickedButtonMonitor)
 END_MESSAGE_MAP()
 
@@ -114,7 +106,6 @@ BOOL CCitadelPasswordGenDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
 	// TODO: Add extra initialization here
-	m_digits.SetCheck(BST_CHECKED);
 
 	SetGenState();
 
@@ -188,17 +179,10 @@ void CCitadelPasswordGenDlg::OnEnChangeEditSize()
 
 void CCitadelPasswordGenDlg::OnBnClickedBtnGen()
 {
-	bool bStatus = OneCheckbox();
-	if (!bStatus)
-	{
-		AfxMessageBox("Please check at least one check box");
-		return;
-	}
+	bool bStatus = true;
 
 	CString chars;
-
-	if (m_digits.GetCheck())
-		chars += CString("01");
+	chars = CString("01");
 
 	Fortuna *pFortuna = theApp.GetFortuna();
 
@@ -300,30 +284,10 @@ void CCitadelPasswordGenDlg::OnBnClickedBtnGen()
 	writeToFile.Close();
 }
 
-void CCitadelPasswordGenDlg::OnBnClickedCheckaz()
-{
-	SetGenState();
-}
-
-void CCitadelPasswordGenDlg::OnBnClickedCheckAzcaps()
-{
-	SetGenState();
-}
-
-void CCitadelPasswordGenDlg::OnBnClickedCheck09()
-{
-	SetGenState();
-}
-
-void CCitadelPasswordGenDlg::OnBnClickedCheckPunct()
-{
-	SetGenState();
-}
-
 
 void CCitadelPasswordGenDlg::SetGenState()
 {
-	bool bStatus = OneCheckbox();
+	bool bStatus = true;
 
 	if (bStatus)
 	{
@@ -335,18 +299,6 @@ void CCitadelPasswordGenDlg::SetGenState()
 	}
 
 }
-
-//! ensure that at least one checkbox is checked
-bool CCitadelPasswordGenDlg::OneCheckbox()
-{
-	int i = m_digits.GetCheck() == BST_CHECKED;
-
-	return i ? true : false;
-}
-
-
-
-
 
 void CCitadelPasswordGenDlg::OnBnClickedButtonMonitor()
 {
